@@ -1,0 +1,17 @@
+# Visual Studio
+.vs/
+
+# Build outputs
+bin/
+obj/
+
+# Node / Angular
+node_modules/
+dist/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
