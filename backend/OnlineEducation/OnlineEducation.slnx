@@ -1,3 +1,6 @@
 <Solution>
   <Project Path="OnlineEducation.Api/OnlineEducation.Api.csproj" />
+  <Project Path="OnlineEducation.Application/OnlineEducation.Application.csproj" Id="47f7b701-0dc8-45fb-aa57-92959d854199" />
+  <Project Path="OnlineEducation.Domain/OnlineEducation.Domain.csproj" Id="59640ea5-5475-4077-97c3-4c20e8be2360" />
+  <Project Path="OnlineEducation.Infrastructure/OnlineEducation.Infrastructure.csproj" Id="9f313f0f-679d-4e5f-8bac-07d2ffbe19f4" />
 </Solution>
