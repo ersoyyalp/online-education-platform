@@ -11,10 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Commands\" />
-    <Folder Include="Common\" />
     <Folder Include="Queries\" />
   </ItemGroup>
 

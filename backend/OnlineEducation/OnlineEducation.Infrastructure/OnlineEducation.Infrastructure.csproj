@@ -7,13 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OnlineEducation.Application\OnlineEducation.Application.csproj" />
     <ProjectReference Include="..\OnlineEducation.Domain\OnlineEducation.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dapper\" />
     <Folder Include="EfCore\" />
-    <Folder Include="Connection\" />
   </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Dapper" Version="2.1.66" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.3" />
+	</ItemGroup>
+
 
 </Project>
