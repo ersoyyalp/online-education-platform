@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace OnlineEducation.Application.Interfaces
 {
-    public interface IInstructorScheduleQuery
+    public interface ICreateRescheduleRequestCommand
     {
-        Task<InstructorWeeklyAgendaResponseDto> GetWeeklyScheduleAsync(
-          int instructorId,
-          int offset);
+        Task<int> CreateAsync(int lessonId, CreateRescheduleRequestDto request);
     }
 }

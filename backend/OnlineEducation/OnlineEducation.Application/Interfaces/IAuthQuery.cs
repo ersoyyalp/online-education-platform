@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace OnlineEducation.Application.Interfaces
 {
-    public interface IInstructorScheduleQuery
+    public interface IAuthQuery
     {
-        Task<InstructorWeeklyAgendaResponseDto> GetWeeklyScheduleAsync(
-          int instructorId,
-          int offset);
+        Task<UserAuthDto?> ValidateUserAsync(string email, string password);
     }
 }

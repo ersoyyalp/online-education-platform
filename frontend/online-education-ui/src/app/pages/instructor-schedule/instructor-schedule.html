@@ -1,0 +1,49 @@
+<h2>Eğitmen Haftalık Ders Takvimi</h2>
+
+<p *ngIf="agenda">
+  <strong>
+    {{ agenda.weekStart | date:'dd.MM.yyyy' }} -
+    {{ agenda.weekEnd | date:'dd.MM.yyyy' }}
+  </strong>
+</p>
+
+<div class="week-buttons">
+  <button (click)="previousWeek()">← Önceki Hafta</button>
+  <button (click)="nextWeek()">Sonraki Hafta →</button>
+</div>
+
+<full-calendar
+  #calendar
+  [options]="calendarOptions">
+</full-calendar>
+
+<p *ngIf="agenda && agenda.items.length === 0">
+  Bu hafta için ders bulunmamaktadır.
+</p>
+
+<div
+  class="modal-backdrop"
+  *ngIf="selectedEvent"
+  (click)="selectedEvent = null"
+>
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>{{ selectedEvent.title }}</h3>
+<span class="lesson-badge" [ngClass]="'badge-' + selectedEvent.extendedProps.lessonType">
+  {{ selectedEvent.extendedProps.lessonType | uppercase }}
+</span>
+    <p>
+      {{ selectedEvent.start | date:'dd.MM.yyyy HH:mm' }} -
+      {{ selectedEvent.end | date:'HH:mm' }}
+    </p>
+
+    <strong>Katılımcılar</strong>
+    <ul>
+      <li *ngFor="let p of selectedEvent.extendedProps.participants">
+        {{ p.fullName }}
+      </li>
+    </ul>
+
+    <button (click)="selectedEvent = null">Kapat</button>
+  </div>
+</div>
+

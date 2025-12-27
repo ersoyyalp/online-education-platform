@@ -1,8 +1,9 @@
-﻿using System.Data;
-using Dapper;
+﻿using Dapper;
 using OnlineEducation.Application.DTOs;
 using OnlineEducation.Application.Interfaces;
 using OnlineEducation.Infrastructure.Connection;
+using OnlineEducation.Infrastructure.Dapper.Queries.Models;
+using System.Data;
 
 namespace OnlineEducation.Infrastructure.Dapper.Queries;
 
@@ -15,39 +16,39 @@ public class InstructorScheduleQuery : IInstructorScheduleQuery
         _connectionFactory = connectionFactory;
     }
 
-    public async Task<IReadOnlyList<InstructorWeeklyScheduleDto>> GetWeeklyScheduleAsync(
+    public async Task<InstructorWeeklyAgendaResponseDto> GetWeeklyScheduleAsync(
         int instructorId,
-        DateTime weekStart,
-        DateTime weekEnd)
+        int offset)
     {
         using var connection = _connectionFactory.CreateConnection();
 
+        var today = DateTime.Today;
+        var weekStart = today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday)
+                             .AddDays(offset * 7);
+        var weekEnd = weekStart.AddDays(7);
+
         const string sql = @"
-SELECT 
+SELECT
     l.LessonId,
     l.Title AS LessonTitle,
     ls.StartTime,
     ls.EndTime,
-    COUNT(lp.ParticipantId) AS ParticipantCount
+    p.ParticipantId,
+    p.FirstName,
+    p.LastName
 FROM Lessons l
 INNER JOIN LessonSchedules ls ON ls.LessonId = l.LessonId
 LEFT JOIN LessonParticipants lp ON lp.LessonId = l.LessonId
-WHERE 
-    l.InstructorId = @InstructorId
-    AND l.IsDeleted = 0
-    AND ls.IsDeleted = 0
-    AND ls.StartTime >= @WeekStart
-    AND ls.EndTime <= @WeekEnd
-GROUP BY
-    l.LessonId,
-    l.Title,
-    ls.StartTime,
-    ls.EndTime
-ORDER BY
-    ls.StartTime;
+LEFT JOIN Participants p ON p.ParticipantId = lp.ParticipantId
+WHERE l.InstructorId = @InstructorId
+  AND l.IsDeleted = 0
+  AND ls.IsDeleted = 0
+  AND ls.StartTime >= @WeekStart
+  AND ls.EndTime < @WeekEnd
+ORDER BY ls.StartTime;
 ";
 
-        var result = await connection.QueryAsync<InstructorWeeklyScheduleDto>(
+        var rows = await connection.QueryAsync<InstructorScheduleRawRow>(
             sql,
             new
             {
@@ -56,6 +57,35 @@ ORDER BY
                 WeekEnd = weekEnd
             });
 
-        return result.ToList();
+        var items = rows
+            .GroupBy(r => new { r.LessonId, r.LessonTitle, r.StartTime, r.EndTime })
+            .Select(g => new InstructorWeeklyScheduleDto
+            {
+                LessonId = g.Key.LessonId,
+                LessonTitle = g.Key.LessonTitle,
+                Day = g.Key.StartTime.ToString("dddd"),
+                Date = DateOnly.FromDateTime(g.Key.StartTime),
+                StartTime = g.Key.StartTime.ToString("HH:mm"),
+                EndTime = g.Key.EndTime.ToString("HH:mm"),
+                Participants = g
+                    .Where(x => x.ParticipantId.HasValue)
+                    .Select(x => new ScheduleParticipantDto
+                    {
+                        ParticipantId = x.ParticipantId!.Value,
+                        FullName = $"{x.FirstName} {x.LastName}"
+                    })
+                    .DistinctBy(p => p.ParticipantId)
+                    .ToList(),
+                ParticipantCount = g.Count(x => x.ParticipantId.HasValue)
+            })
+            .ToList();
+
+        return new InstructorWeeklyAgendaResponseDto
+        {
+            WeekStart = weekStart,
+            WeekEnd = weekEnd,
+            Items = items
+        };
     }
+
 }

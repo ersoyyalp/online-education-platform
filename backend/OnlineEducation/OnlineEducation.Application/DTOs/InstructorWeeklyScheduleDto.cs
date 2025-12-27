@@ -10,8 +10,17 @@ namespace OnlineEducation.Application.DTOs
     {
         public int LessonId { get; set; }
         public string LessonTitle { get; set; } = null!;
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateOnly Date { get; set; }
+        public string Day { get; set; } = null!;
+        public string StartTime { get; set; } = null!;
+        public string EndTime { get; set; } = null!;
         public int ParticipantCount { get; set; }
+
+        public List<ScheduleParticipantDto> Participants { get; set; } = new();
+    }
+    public class ScheduleParticipantDto
+    {
+        public int ParticipantId { get; set; }
+        public string FullName { get; set; } = null!;
     }
 }
