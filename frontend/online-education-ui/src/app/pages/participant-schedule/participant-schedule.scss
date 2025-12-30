@@ -1,0 +1,84 @@
+.week-buttons {
+  margin-bottom: 12px;
+}
+
+button {
+  margin-right: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+/* Genel event */
+.lesson-event {
+  border-radius: 6px;
+  padding: 4px;
+  font-size: 12px;
+  color: white;
+}
+
+/* Hover efekti */
+.lesson-event:hover {
+  background-color: #3b55c5 !important;
+  cursor: pointer;
+}
+
+/* Bugün kolonu */
+.fc-day-today {
+  background: #f5f8ff !important;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999; // 🔥 KRİTİK SATIR
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+
+  z-index: 10000; // 🔥 ekstra garanti
+}
+
+.fc-event.lesson-grammar {
+  background-color: #4f6bed !important;
+  border-color: #4f6bed !important;
+}
+
+.fc-event.lesson-speaking {
+  background-color: #2e9d6f !important;
+  border-color: #2e9d6f !important;
+}
+
+.fc-event.lesson-default {
+  background-color: #e67e22 !important;
+  border-color: #e67e22 !important;
+}
+
+.lesson-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.badge-grammar {
+  background: #4f6bed;
+}
+
+.badge-speaking {
+  background: #2e9d6f;
+}
+
+.badge-default {
+  background: #e67e22;
+}

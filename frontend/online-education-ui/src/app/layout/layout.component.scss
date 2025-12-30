@@ -1,0 +1,22 @@
+.app-shell {
+  display: flex;
+  height: 100vh;           // 🔥 ekranı kilitle
+  overflow: hidden;        // 🔥 body scroll kapalı
+  background: #f4f6f8;
+}
+
+/* Sağ taraf */
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;            // 🔥 overflow bug fix
+}
+
+/* İçerik */
+.content {
+  flex: 1;                 // 🔥 navbar’dan kalan alan
+  padding: 24px;
+  overflow-y: auto;        // 🔥 SADECE BURASI SCROLL
+  background: #f8fafc;
+}

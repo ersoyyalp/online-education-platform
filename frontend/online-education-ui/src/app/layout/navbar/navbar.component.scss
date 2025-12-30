@@ -1,0 +1,58 @@
+.navbar {
+  height: 64px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #111827;
+}
+
+.collapse-btn {
+  background: #f4f5ff;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.profile-btn {
+  background: #f4f5ff;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #7b6cff, #6a5cff);
+  border: none;
+  border-radius: 12px;
+  padding: 8px 16px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  opacity: 0.9;
+}

@@ -1,0 +1,34 @@
+<aside class="sidebar" [class.collapsed]="collapsed">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="avatar">CL</div>
+    <div class="user-info" *ngIf="!collapsed">
+      <strong>Online Education</strong>
+      <small>Web platform</small>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <nav class="menu">
+    <a routerLink="/instructor/schedule"
+       routerLinkActive="active"
+       class="menu-item">
+      📅
+      <span *ngIf="!collapsed">Ders Takvimi</span>
+    </a>
+
+    <a class="menu-item">
+      📊
+      <span *ngIf="!collapsed">Analytics</span>
+    </a>
+
+    <a class="menu-item">
+      🔔
+      <span *ngIf="!collapsed">Notifications</span>
+    </a>
+  </nav>
+
+  <div class="spacer"></div>
+
+</aside>

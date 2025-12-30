@@ -1,0 +1,17 @@
+<div class="app-shell">
+
+  <app-sidebar
+    [collapsed]="isSidebarCollapsed"
+  ></app-sidebar>
+
+  <div class="main-area">
+    <app-navbar
+      (toggleSidebar)="toggleSidebar()"
+    ></app-navbar>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+</div>

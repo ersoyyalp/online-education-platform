@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using OnlineEducation.Application.Common;
 using OnlineEducation.Infrastructure;
+using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +23,8 @@ builder.Services.AddInfrastructure();
 
 // 🔐 JWT AUTH
 var jwtSection = builder.Configuration.GetSection("Jwt");
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -36,7 +38,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidAudience = jwtSection["Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(jwtSection["Key"]!)
-            )
+            ),
+
+            // 🔥 EN KRİTİK SATIR
+            RoleClaimType = ClaimTypes.Role
         };
     });
 

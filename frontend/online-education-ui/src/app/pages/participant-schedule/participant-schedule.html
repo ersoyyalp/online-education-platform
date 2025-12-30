@@ -1,0 +1,8 @@
+<h2>Haftalık Ders Takvimim</h2>
+
+<div class="week-buttons">
+  <button (click)="previousWeek()">← Önceki Hafta</button>
+  <button (click)="nextWeek()">Sonraki Hafta →</button>
+</div>
+
+<full-calendar #calendar [options]="calendarOptions"></full-calendar>
