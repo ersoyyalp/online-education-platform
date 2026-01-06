@@ -11,7 +11,10 @@ import { AuthService } from '../../core/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
- @Output() toggleSidebar = new EventEmitter<void>();
+
+  @Output() toggleSidebar = new EventEmitter<void>();
+  @Output() addLesson = new EventEmitter<void>(); // 🆕
+
   constructor(
     private authService: AuthService,
     private router: Router

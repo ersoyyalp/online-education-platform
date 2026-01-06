@@ -19,6 +19,9 @@ namespace OnlineEducation.Infrastructure.Dapper.Commands
             int instructorId,
             CreateLessonRequestDto request)
         {
+            request.StartTime = DateTime.SpecifyKind(request.StartTime, DateTimeKind.Local);
+            request.EndTime = DateTime.SpecifyKind(request.EndTime, DateTimeKind.Local);
+
             using var connection = _connectionFactory.CreateConnection();
             connection.Open();
 

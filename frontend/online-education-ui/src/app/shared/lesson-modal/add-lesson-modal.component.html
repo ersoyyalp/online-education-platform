@@ -1,0 +1,80 @@
+<div class="modal-backdrop" (click)="close.emit()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <!-- HEADER -->
+    <div class="modal-header">
+      <h3>Ders Ekle</h3>
+      <button class="close-icon" (click)="close.emit()">✕</button>
+    </div>
+
+    <!-- BODY -->
+    <div class="modal-body">
+      <!-- STUDENTS -->
+       
+      <label class="label">Öğrenciler</label>
+      <input class="search" placeholder="Öğrenci ara..." [(ngModel)]="search" />
+
+      <div class="list">
+        <div
+          class="item"
+          *ngFor="let p of filteredParticipants()"
+          (click)="toggle(p.participantId)"
+          [class.active]="isSelected(p.participantId)"
+        >
+          <span>{{ p.fullName }}</span>
+          <input type="checkbox" [checked]="isSelected(p.participantId)" />
+        </div>
+      </div>
+      <div class="section-participants">
+         <span class="count"> {{ selectedIds.length }} öğrenci seçildi </span>
+      </div>
+      <!-- 🔥 DATE & TIME -->
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="label">Tarih</label>
+          <input type="date" [(ngModel)]="lessonDate" />
+        </div>
+
+        <div class="form-group">
+          <label class="label">Başlangıç Saati</label>
+          <input type="time" [(ngModel)]="startTime" />
+        </div>
+
+        <div class="form-group">
+          <label class="label">Bitiş Saati</label>
+          <input type="time" [(ngModel)]="endTime" />
+        </div>
+      </div>
+       <div class="lesson-info">
+      <div class="form-group full">
+        <label class="label">Ders Adı</label>
+        <input type="text" placeholder="Örn: Weekly English Speaking" [(ngModel)]="lessonTitle" />
+      </div>
+
+      <div class="form-group full">
+        <label class="label">Açıklama</label>
+        <textarea
+          rows="3"
+          placeholder="Ders hakkında kısa açıklama..."
+          [(ngModel)]="lessonDescription"
+        ></textarea>
+      </div>
+    </div>
+    </div>
+
+   
+<div class="error-box" *ngIf="errors.length">
+  <div class="error" *ngFor="let err of errors">
+    {{ err }}
+  </div>
+</div>
+
+    <!-- FOOTER -->
+    <div class="modal-footer">
+
+      <div class="actions">
+        <button class="btn-secondary" (click)="close.emit()">İptal</button>
+        <button class="btn-primary" (click)="submit()">Devam Et</button>
+      </div>
+    </div>
+  </div>
+</div>

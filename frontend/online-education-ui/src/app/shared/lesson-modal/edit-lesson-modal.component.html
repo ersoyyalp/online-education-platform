@@ -1,0 +1,45 @@
+<div class="modal-backdrop" (click)="close.emit()">
+  <div class="modal" (click)="$event.stopPropagation()">
+
+    <!-- HEADER -->
+    <div class="modal-header">
+      <h3>Ders Düzenle</h3>
+      <button class="close-icon" (click)="close.emit()">✕</button>
+    </div>
+
+    <!-- BODY -->
+    <div class="modal-body">
+
+      <label class="label">Ders Adı</label>
+      <input [(ngModel)]="title" />
+
+      <label class="label">Açıklama</label>
+      <textarea [(ngModel)]="description"></textarea>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Tarih</label>
+          <input type="date" [(ngModel)]="lessonDate" />
+        </div>
+
+        <div class="form-group">
+          <label>Başlangıç</label>
+          <input type="time" [(ngModel)]="startTime" />
+        </div>
+
+        <div class="form-group">
+          <label>Bitiş</label>
+          <input type="time" [(ngModel)]="endTime" />
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="close.emit()">İptal</button>
+      <button class="btn-primary" (click)="submit()">Kaydet</button>
+    </div>
+
+  </div>
+</div>

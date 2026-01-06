@@ -33,6 +33,8 @@ public static class DependencyInjection
 
         services.AddScoped<IParticipantScheduleQuery, ParticipantScheduleQuery>();
 
+        services.AddScoped<IGetParticipantsQuery, GetParticipantsQuery>();
+
         services.AddScoped<IAuthQuery, AuthQuery>();
 
         services.AddScoped<IJwtTokenService, JwtTokenService>();

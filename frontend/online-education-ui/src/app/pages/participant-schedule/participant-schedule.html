@@ -1,8 +1,71 @@
-<h2>Haftalık Ders Takvimim</h2>
+<div class="calendar-page" *ngIf="agenda" #calendarContainer>
+  <!-- HEADER -->
+  <div class="calendar-header" (click)="$event.stopPropagation()">
+    <div>
+      <h2>Öğrenci Haftalık Ders Takvimi</h2>
+      <span class="date-range">
+        {{ agenda.weekStart | date : 'dd MMM yyyy' }} -
+        {{ displayWeekEnd | date : 'dd MMM yyyy' }}
+      </span>
+    </div>
 
-<div class="week-buttons">
-  <button (click)="previousWeek()">← Önceki Hafta</button>
-  <button (click)="nextWeek()">Sonraki Hafta →</button>
+    <div class="nav-buttons">
+      <button type="button" (click)="previousWeek()">←</button>
+      <button type="button" (click)="nextWeek()">→</button>
+    </div>
+  </div>
+
+  <!-- CALENDAR GRID -->
+  <div class="calendar-grid">
+    <div class="day-column" *ngFor="let day of days">
+      <div class="day-header">
+        {{ day.label }}
+      </div>
+
+      <div class="events">
+        <div
+          class="event-pill"
+          *ngFor="let ev of day.events"
+          [style.background]="ev.color"
+          (mousedown)="$event.preventDefault()"
+          (click)="onEventClick($event, ev)"
+        >
+          <div class="event-title">{{ ev.title }}</div>
+
+          <div class="event-time">{{ ev.start }} - {{ ev.end }}</div>
+
+          <div class="avatars">
+            <span class="avatar" *ngFor="let p of ev.participants | slice : 0 : 3">
+              {{ getInitial(p.fullName) }}
+            </span>
+
+            <span *ngIf="ev.participantCount > 3" class="more">
+              +{{ ev.participantCount - 3 }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<full-calendar #calendar [options]="calendarOptions"></full-calendar>
+<!-- MODAL -->
+<div class="modal-backdrop" *ngIf="selectedEvent" (click)="closeModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>{{ selectedEvent.title }}</h3>
+
+    <p>
+      {{ selectedEvent.date }} <br />
+      {{ selectedEvent.start }} - {{ selectedEvent.end }}
+    </p>
+
+    <strong>Katılımcılar</strong>
+    <ul>
+      <li *ngFor="let p of selectedEvent.participants">
+        {{ p.fullName }}
+      </li>
+    </ul>
+
+    <button (click)="closeModal()">Kapat</button>
+  </div>
+</div>

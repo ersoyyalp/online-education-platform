@@ -7,6 +7,7 @@
   <div class="main-area">
     <app-navbar
       (toggleSidebar)="toggleSidebar()"
+      (addLesson)="openAddLesson()"
     ></app-navbar>
 
     <main class="content">
@@ -15,3 +16,9 @@
   </div>
 
 </div>
+
+<!-- 🔥 MODAL ROOT -->
+<app-add-lesson-modal
+  *ngIf="isAddLessonOpen"
+  (close)="closeAddLesson()">
+</app-add-lesson-modal>

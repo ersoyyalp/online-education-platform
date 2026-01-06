@@ -4,6 +4,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AuthService } from '../core/auth.service';
+import { AddLessonModalComponent } from "../shared/lesson-modal/add-lesson-modal.component";
 
 @Component({
   standalone: true,
@@ -14,22 +15,23 @@ import { AuthService } from '../core/auth.service';
     CommonModule,
     RouterOutlet,
     NavbarComponent,
-    SidebarComponent
-  ]
+    SidebarComponent,
+    AddLessonModalComponent
+]
 })
 export class LayoutComponent {
-isSidebarCollapsed = false;
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  isSidebarCollapsed = false;
+  isAddLessonOpen = false;
 
-  logout(): void {
-    this.authService.logout();
-    this.router.navigateByUrl('/login');
+  toggleSidebar() {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 
-    toggleSidebar() {
-    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  openAddLesson() {
+    this.isAddLessonOpen = true;
+  }
+
+  closeAddLesson() {
+    this.isAddLessonOpen = false;
   }
 }

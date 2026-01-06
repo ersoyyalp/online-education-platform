@@ -1,15 +1,3 @@
-<!-- <div class="navbar">
-
-  <div class="navbar-left">
-    <span class="brand">Online Education</span>
-  </div>
-
-  <div class="navbar-right">
-    <button class="nav-btn">Profile</button>
-    <button class="nav-btn logout" (click)="logout()">Logout</button>
-  </div>
-
-</div> -->
 <div class="navbar">
 
   <div class="left">
@@ -18,6 +6,12 @@
   </div>
 
   <div class="actions">
+
+    <!-- 🆕 Ders Ekle -->
+    <button class="add-lesson-btn" (click)="addLesson.emit()">
+      + Ders Ekle
+    </button>
+
     <button class="profile-btn">Profile</button>
     <button class="logout-btn" (click)="logout()">Logout</button>
   </div>

@@ -9,6 +9,7 @@ export interface InstructorWeeklySchedule {
    date: string;   
   day: string;
   startTime: string;
+  description?: string;
   endTime: string;
   participantCount: number;
   participants: ScheduleParticipant[];

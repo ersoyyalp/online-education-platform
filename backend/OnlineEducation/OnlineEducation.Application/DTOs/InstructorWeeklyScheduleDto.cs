@@ -15,6 +15,7 @@ namespace OnlineEducation.Application.DTOs
         public string StartTime { get; set; } = null!;
         public string EndTime { get; set; } = null!;
         public int ParticipantCount { get; set; }
+        public string Description { get; set; }
 
         public List<ScheduleParticipantDto> Participants { get; set; } = new();
     }

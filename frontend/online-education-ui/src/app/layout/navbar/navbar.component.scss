@@ -56,3 +56,21 @@
 .logout-btn:hover {
   opacity: 0.9;
 }
+
+.add-lesson-btn {
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 12px;
+  padding: 8px 14px;
+  font-weight: 600;
+  color: #4f46e5;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.add-lesson-btn:hover {
+  background: #e0e7ff;
+}
+.add-lesson-btn:active {
+  transform: scale(0.95);
+}

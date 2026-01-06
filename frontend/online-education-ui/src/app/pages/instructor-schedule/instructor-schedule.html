@@ -1,49 +1,89 @@
-<h2>Eğitmen Haftalık Ders Takvimi</h2>
+<div class="calendar-page" *ngIf="agenda" #calendarContainer>
+  <!-- HEADER -->
+  <div class="calendar-header" (click)="$event.stopPropagation()">
+    <div>
+      <h2>Eğitmen Haftalık Ders Takvimi</h2>
+      <span class="date-range">
+        {{ agenda.weekStart | date:'dd MMM yyyy' }} -
+        {{ displayWeekEnd | date:'dd MMM yyyy' }}
+      </span>
+    </div>
 
-<p *ngIf="agenda">
-  <strong>
-    {{ agenda.weekStart | date:'dd.MM.yyyy' }} -
-    {{ agenda.weekEnd | date:'dd.MM.yyyy' }}
-  </strong>
-</p>
+    <div class="nav-buttons">
+      <button type="button" (click)="previousWeek()">←</button>
+      <button type="button" (click)="nextWeek()">→</button>
+    </div>
+  </div>
 
-<div class="week-buttons">
-  <button (click)="previousWeek()">← Önceki Hafta</button>
-  <button (click)="nextWeek()">Sonraki Hafta →</button>
-</div>
+  <!-- GRID -->
+  <div class="calendar-grid">
+    <div class="day-column" *ngFor="let day of days">
+      <div class="day-header">{{ day.label }}</div>
 
-<full-calendar
-  #calendar
-  [options]="calendarOptions">
-</full-calendar>
+      <div class="events">
+        <div
+          class="event-pill"
+          *ngFor="let ev of day.events"
+          [style.background]="ev.color"
+          (mousedown)="$event.preventDefault()"
+          (click)="onEventClick($event, ev)"
+        >
+          <!-- 🗑️ DELETE -->
+          <button
+            class="delete-btn"
+            (click)="onDeleteClick($event, ev)"
+            title="Dersi Sil"
+          >
+            🗑️
+          </button>
 
-<p *ngIf="agenda && agenda.items.length === 0">
-  Bu hafta için ders bulunmamaktadır.
-</p>
+          <div class="event-title">{{ ev.title }}</div>
+          <div class="event-time">{{ ev.start }} - {{ ev.end }}</div>
 
-<div
-  class="modal-backdrop"
-  *ngIf="selectedEvent"
-  (click)="selectedEvent = null"
->
-  <div class="modal" (click)="$event.stopPropagation()">
-    <h3>{{ selectedEvent.title }}</h3>
-<span class="lesson-badge" [ngClass]="'badge-' + selectedEvent.extendedProps.lessonType">
-  {{ selectedEvent.extendedProps.lessonType | uppercase }}
-</span>
-    <p>
-      {{ selectedEvent.start | date:'dd.MM.yyyy HH:mm' }} -
-      {{ selectedEvent.end | date:'HH:mm' }}
-    </p>
-
-    <strong>Katılımcılar</strong>
-    <ul>
-      <li *ngFor="let p of selectedEvent.extendedProps.participants">
-        {{ p.fullName }}
-      </li>
-    </ul>
-
-    <button (click)="selectedEvent = null">Kapat</button>
+          <div class="avatars">
+            <span class="avatar" *ngFor="let p of ev.participants | slice:0:3">
+              {{ getInitial(p.fullName) }}
+            </span>
+            <span *ngIf="ev.participantCount > 3" class="more">
+              +{{ ev.participantCount - 3 }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
+<!-- ADD -->
+<app-add-lesson-modal
+  *ngIf="showAddLessonModal"
+  (close)="showAddLessonModal = false"
+  (lessonCreated)="onLessonCreated()"
+></app-add-lesson-modal>
+
+<!-- EDIT -->
+<app-edit-lesson-modal
+  *ngIf="showEditLessonModal"
+  [lesson]="selectedEvent"
+  (close)="showEditLessonModal = false"
+  (lessonUpdated)="onLessonUpdated()"
+></app-edit-lesson-modal>
+
+<!-- DELETE CONFIRM -->
+<div class="modal-backdrop" *ngIf="showDeleteConfirm">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>Dersi Sil</h3>
+
+    <p>
+      <strong>{{ lessonToDelete?.title }}</strong> adlı dersi silmek
+      istediğinize emin misiniz?
+    </p>
+
+    <div class="actions" style="    display: flex;
+    align-items: center;
+    justify-content: space-between;">
+        <button class="btn-secondary" (click)="cancelDelete()">İptal</button>
+      <button class="btn-danger" (click)="confirmDelete()">Sil</button>
+    </div>
+  </div>
+</div>

@@ -35,7 +35,8 @@ SELECT
     ls.EndTime,
     p.ParticipantId,
     p.FirstName,
-    p.LastName
+    p.LastName,
+    l.Description
 FROM Lessons l
 INNER JOIN LessonSchedules ls ON ls.LessonId = l.LessonId
 LEFT JOIN LessonParticipants lp ON lp.LessonId = l.LessonId
@@ -58,10 +59,11 @@ ORDER BY ls.StartTime;
             });
 
         var items = rows
-            .GroupBy(r => new { r.LessonId, r.LessonTitle, r.StartTime, r.EndTime })
+            .GroupBy(r => new { r.LessonId, r.LessonTitle, r.StartTime, r.EndTime, r.Description })
             .Select(g => new InstructorWeeklyScheduleDto
             {
                 LessonId = g.Key.LessonId,
+                Description = g.Key.Description,
                 LessonTitle = g.Key.LessonTitle,
                 Day = g.Key.StartTime.ToString("dddd"),
                 Date = DateOnly.FromDateTime(g.Key.StartTime),
