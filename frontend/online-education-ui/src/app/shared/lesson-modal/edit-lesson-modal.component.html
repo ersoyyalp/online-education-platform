@@ -16,6 +16,7 @@
       <label class="label">Açıklama</label>
       <textarea [(ngModel)]="description"></textarea>
 
+      <!-- 🔥 TARİH & SAAT -->
       <div class="form-grid">
         <div class="form-group">
           <label>Tarih</label>
@@ -30,6 +31,23 @@
         <div class="form-group">
           <label>Bitiş</label>
           <input type="time" [(ngModel)]="endTime" />
+        </div>
+      </div>
+
+      <!-- 🔥 KATILIMCILAR (GERİ EKLENDİ) -->
+      <div class="participants-section">
+        <span class="label">Katılımcılar</span>
+
+        <div class="participant-list">
+          <div
+            class="participant"
+            *ngFor="let p of participants"
+          >
+            <span class="avatar">
+              {{ getInitial(p.fullName) }}
+            </span>
+            <span class="name">{{ p.fullName }}</span>
+          </div>
         </div>
       </div>
 

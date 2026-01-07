@@ -50,22 +50,53 @@
 </div>
 
 <!-- MODAL -->
+<!-- MODAL -->
 <div class="modal-backdrop" *ngIf="selectedEvent" (click)="closeModal()">
   <div class="modal" (click)="$event.stopPropagation()">
-    <h3>{{ selectedEvent.title }}</h3>
 
-    <p>
-      {{ selectedEvent.date }} <br />
-      {{ selectedEvent.start }} - {{ selectedEvent.end }}
-    </p>
+    <!-- HEADER -->
+    <div class="modal-header">
+      <h3>{{ selectedEvent.title }}</h3>
+      <button class="close-icon" (click)="closeModal()">✕</button>
+    </div>
 
-    <strong>Katılımcılar</strong>
-    <ul>
-      <li *ngFor="let p of selectedEvent.participants">
-        {{ p.fullName }}
-      </li>
-    </ul>
+    <!-- BODY -->
+    <div class="modal-body">
+      <div class="info-row">
+        <span class="label">Tarih</span>
+        <span class="value">
+          {{ selectedEvent.date }}
+        </span>
+      </div>
 
-    <button (click)="closeModal()">Kapat</button>
+      <div class="info-row">
+        <span class="label">Saat</span>
+        <span class="value">
+          {{ selectedEvent.start }} - {{ selectedEvent.end }}
+        </span>
+      </div>
+
+      <div class="participants">
+        <span class="label">Katılımcılar</span>
+
+        <div class="participant-list">
+          <div
+            class="participant"
+            *ngFor="let p of selectedEvent.participants"
+          >
+            <span class="avatar">
+              {{ getInitial(p.fullName) }}
+            </span>
+            <span class="name">{{ p.fullName }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="closeModal()">Kapat</button>
+    </div>
+
   </div>
 </div>

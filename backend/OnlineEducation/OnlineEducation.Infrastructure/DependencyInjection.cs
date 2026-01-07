@@ -35,6 +35,8 @@ public static class DependencyInjection
 
         services.AddScoped<IGetParticipantsQuery, GetParticipantsQuery>();
 
+        services.AddScoped<ICreateLessonForParticipantRequestCommand, CreateLessonForParticipantRequestCommand>();
+
         services.AddScoped<IAuthQuery, AuthQuery>();
 
         services.AddScoped<IJwtTokenService, JwtTokenService>();

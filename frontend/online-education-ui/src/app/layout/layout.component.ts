@@ -5,6 +5,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AuthService } from '../core/auth.service';
 import { AddLessonModalComponent } from "../shared/lesson-modal/add-lesson-modal.component";
+import { LessonRequestModalComponent } from "../shared/lesson-request-modal/lesson-request-modal.component";
 
 @Component({
   standalone: true,
@@ -16,22 +17,36 @@ import { AddLessonModalComponent } from "../shared/lesson-modal/add-lesson-modal
     RouterOutlet,
     NavbarComponent,
     SidebarComponent,
-    AddLessonModalComponent
+    AddLessonModalComponent,
+    LessonRequestModalComponent
 ]
 })
 export class LayoutComponent {
+
   isSidebarCollapsed = false;
+
   isAddLessonOpen = false;
+  isLessonRequestOpen = false;
 
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 
+  // Instructor
   openAddLesson() {
     this.isAddLessonOpen = true;
   }
 
   closeAddLesson() {
     this.isAddLessonOpen = false;
+  }
+
+  // Participant
+  openLessonRequest() {
+    this.isLessonRequestOpen = true;
+  }
+
+  closeLessonRequest() {
+    this.isLessonRequestOpen = false;
   }
 }

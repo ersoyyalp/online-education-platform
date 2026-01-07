@@ -138,3 +138,38 @@ textarea {
     opacity: 1;
   }
 }
+.participants-section {
+  margin-top: 20px;
+}
+
+.participant-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.participant {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f9fafb;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.participant .avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #6366f1;
+  color: #fff;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.participant .name {
+  font-size: 14px;
+}

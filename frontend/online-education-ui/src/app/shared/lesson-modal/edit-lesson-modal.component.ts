@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { ScheduleParticipant } from '../../models/instructor-weekly-schedule.model';
 
 @Component({
   standalone: true,
@@ -21,6 +22,7 @@ export class EditLessonModalComponent {
   lessonDate = '';
   startTime = '';
   endTime = '';
+  participants: ScheduleParticipant[] = [];
 
   constructor(private http: HttpClient, private toastr: ToastrService) {}
 
@@ -31,7 +33,11 @@ export class EditLessonModalComponent {
     this.lessonDate = this.lesson.date;
     this.startTime = this.lesson.start;
     this.endTime = this.lesson.end;
+    this.participants = this.lesson.participants || [];
   }
+getInitial(name: string): string {
+  return name ? name.charAt(0).toUpperCase() : '';
+}
 
   submit() {
     const payload = {

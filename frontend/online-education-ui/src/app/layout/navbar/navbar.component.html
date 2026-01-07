@@ -7,9 +7,11 @@
 
   <div class="actions">
 
-    <!-- 🆕 Ders Ekle -->
-    <button class="add-lesson-btn" (click)="addLesson.emit()">
-      + Ders Ekle
+    <button
+      class="add-lesson-btn"
+      (click)="onAddLessonClick()"
+    >
+      {{ role === 'Participant' ? '+ Ders Talebi' : '+ Ders Ekle' }}
     </button>
 
     <button class="profile-btn">Profile</button>

@@ -1,0 +1,71 @@
+<div class="modal-backdrop" (click)="close.emit()">
+  <div class="modal" (click)="$event.stopPropagation()">
+
+    <!-- HEADER -->
+    <div class="modal-header">
+      <h3>Ders Talebi Oluştur</h3>
+      <button class="close-icon" (click)="close.emit()">✕</button>
+    </div>
+
+    <!-- BODY -->
+    <div class="modal-body">
+
+      <!-- DATE & TIME -->
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="label">Tarih</label>
+          <input type="date" [(ngModel)]="lessonDate" />
+        </div>
+
+        <div class="form-group">
+          <label class="label">Başlangıç Saati</label>
+          <input type="time" [(ngModel)]="startTime" />
+        </div>
+
+        <div class="form-group">
+          <label class="label">Bitiş Saati</label>
+          <input type="time" [(ngModel)]="endTime" />
+        </div>
+      </div>
+
+      <!-- LESSON INFO -->
+      <div class="lesson-info">
+        <div class="form-group full">
+          <label class="label">Ders Adı</label>
+          <input
+            type="text"
+            placeholder="Örn: Speaking Practice"
+            [(ngModel)]="lessonTitle"
+          />
+        </div>
+
+        <div class="form-group full">
+          <label class="label">Açıklama</label>
+          <textarea
+            rows="3"
+            placeholder="Eğitmene iletmek istediğin açıklama..."
+            [(ngModel)]="lessonDescription"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- ERRORS -->
+      <div class="error-box" *ngIf="errors.length">
+        <div class="error" *ngFor="let err of errors">
+          {{ err }}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="modal-footer">
+      <div></div>
+      <div class="actions">
+        <button class="btn-secondary" (click)="close.emit()">İptal</button>
+        <button class="btn-primary" (click)="submit()">Talep Gönder</button>
+      </div>
+    </div>
+
+  </div>
+</div>

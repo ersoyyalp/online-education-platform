@@ -8,6 +8,7 @@
     <app-navbar
       (toggleSidebar)="toggleSidebar()"
       (addLesson)="openAddLesson()"
+      (addLessonRequest)="openLessonRequest()"
     ></app-navbar>
 
     <main class="content">
@@ -17,8 +18,14 @@
 
 </div>
 
-<!-- 🔥 MODAL ROOT -->
+<!-- 🔥 MODAL ROOTLAR (SADECE BURADA OLUR) -->
+
 <app-add-lesson-modal
   *ngIf="isAddLessonOpen"
   (close)="closeAddLesson()">
 </app-add-lesson-modal>
+
+<app-lesson-request-modal
+  *ngIf="isLessonRequestOpen"
+  (close)="closeLessonRequest()">
+</app-lesson-request-modal>
